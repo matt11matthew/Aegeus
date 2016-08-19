@@ -1,0 +1,28 @@
+name: Aegeus
+version: dev
+description: We need more than a weapon.
+authors: [oopsjpeg, Silvre]
+main: aegeus.com.aegeus.App
+
+commands:
+    global:
+      description: Send a message to all players on the server.
+      aliases: gl
+      usage: /global <message>
+    roll:
+      description: Roll a random number.
+      usage: /roll [max number]
+    message:
+      description: Send a private message to a specified player.
+      aliases: [msg, m, whisper, tell, pm]
+      usage: /message <player> <message>
+    chatchannel:
+      description: Changes your default chat channel.
+      aliases: [cc, chat, channel]
+      usage: /chatchannel <channel>
+    testweapon:
+      description: Test weapons.
+    testarmor:
+      description: Test armor.
+    testinv:
+      description: Test inventory.
