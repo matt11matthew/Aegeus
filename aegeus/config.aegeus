@@ -1,0 +1,6 @@
+generate: true
+build: 1
+patchnotes: patchnotes.txt
+devs: [matt11matthew]
+storage: flat
+style: dr
