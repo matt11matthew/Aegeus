@@ -1,5 +1,9 @@
 package aegeus.com.aegeus.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 
 public class Helper {
@@ -29,6 +33,14 @@ public class Helper {
 	
 	public static int calcWepLevelBuff(int MinDmg, int Level){
 		return (int) Math.round((MinDmg * Level) / 65);
+	}
+	
+	public static String buildArgString(String[] args, int start) {
+		List<String> build = new ArrayList<>();
+		for(int i = start; i < args.length; i++){
+			build.add(args[i]);
+		}
+		return StringUtils.join(build, " ");
 	}
 	
 }

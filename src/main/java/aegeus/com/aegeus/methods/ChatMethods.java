@@ -7,17 +7,17 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 import aegeus.com.aegeus.Chat;
-import aegeus.com.aegeus.exceptions.NoneNearbyException;
 import aegeus.com.aegeus.util.Helper;
+import aegeus.com.aegeus.util.exceptions.NoneNearbyException;
 
 public class ChatMethods {
 	
 	public static void sendAutoChat(Player player, String msg){
-		String[] m = msg.split(" ");
-		if(m[0].equalsIgnoreCase("WTB") || m[0].equalsIgnoreCase("WTS") || m[0].equalsIgnoreCase("WTT") ||
-				m[0].equalsIgnoreCase("Buying") || m[0].equalsIgnoreCase("Selling") || m[0].equalsIgnoreCase("Trading")){
+		String[] split = msg.split(" ");
+		if(split[0].equalsIgnoreCase("WTB") || split[0].equalsIgnoreCase("WTS") || split[0].equalsIgnoreCase("WTT") ||
+				split[0].equalsIgnoreCase("Buying") || split[0].equalsIgnoreCase("Selling") || split[0].equalsIgnoreCase("Trading")){
 			sendTradeChat(player, msg);
-		} else if (m[0].equalsIgnoreCase("WTR") || m[0].equalsIgnoreCase("Recruiting")){
+		} else if (split[0].equalsIgnoreCase("WTR") || split[0].equalsIgnoreCase("Recruiting")){
 			sendRecruitChat(player, msg);
 		} else {
 			sendGlobalChat(player, msg);
@@ -41,7 +41,7 @@ public class ChatMethods {
 	
 	public static void sendBroadcast(String msg){
 		Bukkit.broadcastMessage(Helper.colorCodes(
-				"&e&lÂ»&e " + msg));
+				"&e&l»&e " + msg));
 	}
 	
 	public static void sendLocalChat(Player player, String msg) {
@@ -55,7 +55,7 @@ public class ChatMethods {
 	public static void sendRadialChat(Player player, String msg) throws NoneNearbyException {
 		player.sendMessage(msg);
 		boolean peopleNearby = false;
-		for (Entity nearby : player.getNearbyEntities(25, 25, 25)) {
+		for (Entity nearby : player.getNearbyEntities(30, 30, 30)) {
 			if (!nearby.equals(player) && nearby.getType().equals(EntityType.PLAYER)) {
 				peopleNearby = true;
 				nearby.sendMessage(msg);

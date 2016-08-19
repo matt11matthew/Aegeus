@@ -122,7 +122,7 @@ public class Server implements Listener {
 		}
 		player.sendMessage(Helper.colorCodes(
 				"        &aAegeus &f&lMMORPG&f\n" +
-				"        &a» &7Build &f" + App.build + " &7(&o" + App.buildNote + "&7)\n" +
+				"        &a» &7Build &f" + Aegeus.build + " &7(&o" + Aegeus.buildNote + "&7)\n" +
 				"        &7Modify game settings with &a/settings"));
 		for (int i = 0; i < 3; i++) {
 			player.sendMessage(" ");

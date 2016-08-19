@@ -1,4 +1,4 @@
-package aegeus.com.aegeus.exceptions;
+package aegeus.com.aegeus.util.exceptions;
 
 public class NoneNearbyException extends RuntimeException {
 	public NoneNearbyException() { super(); }
