@@ -16,3 +16,5 @@ axemaxdmg_rare: 100
 axemindmg_unqiue: 5 
 axemaxdmg_unique: 10
 
+axetype: wood_axe
+swordtype: wood_sword
