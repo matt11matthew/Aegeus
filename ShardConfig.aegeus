@@ -1,0 +1,12 @@
+beta: false
+dev: true
+live: false
+
+us: true
+br: false
+eu: false
+roleplay: false
+
+id: 0
+
+motd: <motd>
