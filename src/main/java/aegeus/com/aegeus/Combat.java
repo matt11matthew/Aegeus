@@ -3,7 +3,6 @@ package aegeus.com.aegeus;
 import java.util.HashMap;
 import java.util.Random;
 
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
@@ -12,12 +11,10 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,7 +24,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import aegeus.com.aegeus.obj.AegeusWeapon;
 import aegeus.com.aegeus.util.Helper;
-import net.minecraft.server.v1_10_R1.Material;
 import net.minecraft.server.v1_10_R1.NBTTagCompound;
 
 public class Combat implements Listener {

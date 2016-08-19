@@ -3,10 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>aegeus</groupId>
+	<artifactId>com.aegeus</artifactId>
 	<version>dev</version>
 	<packaging>jar</packaging>
 
 	<name>Aegeus</name>
+	<url></url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,14 +1,11 @@
 package aegeus.com.aegeus.methods;
 
-import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-import aegeus.com.aegeus.App;
 import aegeus.com.aegeus.Chat;
 import aegeus.com.aegeus.exceptions.NoneNearbyException;
 import aegeus.com.aegeus.util.Helper;
