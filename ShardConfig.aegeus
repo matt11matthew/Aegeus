@@ -11,3 +11,6 @@ id: 0
 
 motd: <motd>
 maxplayers: 10
+
+ip: localhost
+port: 25555
