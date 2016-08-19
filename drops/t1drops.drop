@@ -6,7 +6,7 @@ swordmindmg_rare: 50
 swordmaxdmg_rare: 100
 swordmindmg_unqiue: 5 
 swordmaxdmg_unique: 10
- 
+
 axemindmg_common: 5
 axemaxdmg_common: 10
 axemindmg_uncommon: 25
