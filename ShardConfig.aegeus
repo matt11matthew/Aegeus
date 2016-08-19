@@ -10,3 +10,4 @@ roleplay: false
 id: 0
 
 motd: <motd>
+maxplayers: 10
