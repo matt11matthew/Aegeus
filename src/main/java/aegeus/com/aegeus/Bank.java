@@ -24,7 +24,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import aegeus.com.aegeus.obj.AegeusItem;
-import aegeus.com.aegeus.util.Helper;
 import aegeus.com.aegeus.util.InventorytoBase64;
 
 public class Bank implements Listener{
@@ -41,11 +40,7 @@ public class Bank implements Listener{
 	
 	@EventHandler
 	public void onOpenChest(InventoryOpenEvent e)	{
-		if(e.getInventory().getType() == InventoryType.ENDER_CHEST && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.EMPTY_MAP)	{
-			e.setCancelled(true);
-			return;
-		}
-		if(e.getInventory().getType() == InventoryType.ENDER_CHEST && e.getPlayer().getInventory().getItemInMainHand().getType() != Material.EMPTY_MAP)	{
+		if(e.getInventory().getType() == InventoryType.ENDER_CHEST)	{
 			//The player has opened a vanilla ender chest.  Let's cancel it and give them our custom ender chest with more customizability.
 			e.setCancelled(true);
 			Player p = (Player) e.getPlayer();
@@ -55,7 +50,7 @@ public class Bank implements Listener{
 			blockMeta.setDisplayName(ChatColor.GOLD + "0 Gold(Test)");
 			block.setItemMeta(blockMeta);
 			inv.setItem(inv.getSize() - 1, block);
-			if(data.containsKey(p.getUniqueId()))	{
+			if(!data.get(p.getUniqueId()).equals(null))	{
 				try {
 					inv = InventorytoBase64.fromBase64(data.get(p.getUniqueId()), "Bank");
 				} catch (IOException e1) {
@@ -69,37 +64,21 @@ public class Bank implements Listener{
 	
 	@EventHandler
 	public void onCloseChest(InventoryCloseEvent e)	{
-		if(e.getInventory().getName().equalsIgnoreCase("Bank"))	{
+		if(e.getInventory().getName().equalsIgnoreCase(ChatColor.GREEN + "Test inventory"))	{
 			//The player has closed our custom bank inventory.  Spit out the contents of the array as a string to the console.
 			data.put(e.getPlayer().getUniqueId(), InventorytoBase64.toBase64(e.getInventory()));
 		}
 	}
 	
-	/**
-	 * This method is used to check whether they want to withdraw money by clicking the gold block.
-	 * @param e
-	 */
 	@EventHandler
 	public void onClickEvent(InventoryClickEvent e)	{
 		
 	}
 	
-	/**
-	 * This method is used to for upgrading the bank.
-	 * @param e
-	 */
 	@EventHandler
 	public void onBlockInteractEvent(PlayerInteractEvent e)	{
-		if(e.getPlayer().getInventory().getItemInMainHand().getType() == Material.EMPTY_MAP)	{
-			//This is called when a player tries to right-click a map(scroll).
-			e.setCancelled(true);
-		}
-		if(e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals(Helper.colorCodes("&6Bank Upgrade Scroll")) && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.EMPTY_MAP && e.getClickedBlock().getType() == Material.ENDER_CHEST)	{
-			//^The player right clicked an enderchest with an empty map named Bank Upgrade Scroll.
+		if(e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getPlayer().isSneaking() && e.getClickedBlock().getType() == Material.ENDER_CHEST)	{
 			e.getPlayer().sendMessage(ChatColor.AQUA + "You Shift-Right Clicked an Ender Chest Block!");
 		}
-	}
-	private void upgradeBank(Player p)	{
-		
 	}
 }
