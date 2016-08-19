@@ -18,7 +18,7 @@ public class AegeusWeapon extends AegeusItem {
 
 	Material material;
 	String name;
-	List<String> lore = new ArrayList<>();
+	List<String> lore = new ArrayList<String>();
 	
 	int MinDmg = 0;
 	int MaxDmg = 0;

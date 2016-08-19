@@ -2,7 +2,7 @@ name: Aegeus
 version: dev
 description: We need more than a weapon.
 authors: [oopsjpeg, Silvre]
-main: oopsjpeg.aegeus.App
+main: aegeus.com.aegeus.App
 
 commands:
     global:

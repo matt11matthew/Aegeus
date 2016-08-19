@@ -37,6 +37,7 @@ public class App extends JavaPlugin {
 			getServer().getPluginManager().registerEvents(new Mobs(this), this);
 			getServer().getPluginManager().registerEvents(new Mining(this), this);
 			getServer().getPluginManager().registerEvents(new Statistics(this), this);
+			getServer().getPluginManager().registerEvents(new Bank(this), this);
 			getLogger().log(Level.INFO, "Aegeus enabled.");
 		} catch (Exception e) {
 			getLogger().log(Level.SEVERE, "Aegeus failed to load.", e);
