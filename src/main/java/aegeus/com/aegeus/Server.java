@@ -78,14 +78,32 @@ public class Server implements Listener {
 
 	public static HashMap<Player, Boolean> playerCombatLog = new HashMap<>();
 
-	private String[] motds = { // List of MOTDs
-			"The silent return!", "Back in business!", "You won't believe it!", "A BUG HERE AND A BUG THERE",
-			"Still testing code!", "Easy game, easy life!", "The dungeons are everywhere!", "Too many daggers!",
-			"My sword is unbelievably dull.", "Spooky scary skeletons!", "Kilvre silled it!", "Silvre killed it!",
-			"What a mistake you've made.", "Pocket full of spells!", "Edurardo Elrico was here.", "Fix it, Crafty!",
-			"WHO R U", ChatColor.GOLD + "This text isn't gray. Cool!", ChatColor.MAGIC + "You can't read this!",
-			"All hail LeLouch!", "Tiers, loads of em'!", "Hey, what's for dinner?", "Cup noodles!",
-			"Sometimes, I hug my anvil.", "a SKELEton." };
+	private final String[] motds = { // List of MOTDs
+			"Is that supposed to be a meme?",
+			"Not supported by Atlas!",
+			"What are you, a miner?",
+			"pls, no ddos, am only 8",
+			"5.2k Armor Energy, Scouts!",
+			"You have to see to believe!",
+			"<none>",
+			"&mBeloved&7 Known by Gio himself!",
+			"Fancy items!",
+			"peppy pls fix",
+			"oopspng",
+			"I'm from PlanetMinecraft, op please?",
+			"There's more where that came from!",
+			"No, we aren't serving seconds!",
+			"Free T5 on us!",
+			"Close your eyes and make a wish!",
+			"loads of memes.sk",
+			"Divided Nations? What's that?",
+			"Easy game, easy life!",
+			"Too many daggers!",
+			"Kilvre silled it!",
+			"It's high noon somewhere in the world.",
+			"Contrary to popular belief, Silvre did not kill it."};
+			
+			
 
 	@EventHandler
 	private void onLoginEvent(PlayerLoginEvent event) {
@@ -97,7 +115,10 @@ public class Server implements Listener {
 
 	@EventHandler
 	private void onCommandEvent(ServerCommandEvent event) {
-		Bukkit.broadcast(ChatColor.DARK_GRAY + event.getSender().getName() + " executed " + event.getCommand(), "*");
+		for(Player player : Bukkit.getOnlinePlayers()){
+			if(player.isOp()) player.sendMessage(Helper.colorCodes(
+					"&8" + event.getSender().getName() + " executed " + event.getCommand()));
+		}
 	}
 
 	@SuppressWarnings("deprecation")

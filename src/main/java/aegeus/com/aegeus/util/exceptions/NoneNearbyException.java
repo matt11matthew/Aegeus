@@ -1,8 +1,6 @@
 package aegeus.com.aegeus.util.exceptions;
 
 public class NoneNearbyException extends RuntimeException {
-	public NoneNearbyException() { super(); }
+	private static final long serialVersionUID = -6999149451642569982L;
 	public NoneNearbyException(String message) { super(message); }
-	public NoneNearbyException(String message, Throwable cause) { super(message, cause); }
-	public NoneNearbyException(Throwable cause) { super(cause); }
 }
