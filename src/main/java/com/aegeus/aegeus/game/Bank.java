@@ -63,7 +63,7 @@ public class Bank implements Listener{
 	
 	@EventHandler
 	public void onCloseChest(InventoryCloseEvent e)	{
-		if(e.getInventory().getName().equalsIgnoreCase(ChatColor.GREEN + "Bank"))	{
+		if(e.getInventory().getName().equalsIgnoreCase("Bank"))	{
 			//The player has closed our custom bank inventory.  Spit out the contents of the array as a string to the console.
 			data.put(e.getPlayer().getUniqueId(), InventorytoBase64.toBase64(e.getInventory()));
 		}
