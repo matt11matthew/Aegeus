@@ -1,4 +1,4 @@
-package com.aegeus.aegeus.commands;
+package com.aegeus.aegeus.game.commands;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -6,8 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.aegeus.aegeus.obj.AegeusArmor;
-import com.aegeus.aegeus.types.ItemRarity;
+import com.aegeus.aegeus.game.item.ItemArmor;
+import com.aegeus.aegeus.game.item.ItemRarity;
 
 public class CommandTestArmor implements CommandExecutor {
 
@@ -18,10 +18,9 @@ public class CommandTestArmor implements CommandExecutor {
 		
 		Player player = (Player) sender;
 		
-		AegeusArmor armor = new AegeusArmor(Material.CHAINMAIL_LEGGINGS);
+		ItemArmor armor = new ItemArmor(Material.CHAINMAIL_LEGGINGS);
 		armor.setName("&dAgile Chain Leggings");
 		armor.setHp(245);
-		armor.setEnergyRegen(4);
 		armor.setTier(2);
 		armor.setRarity(ItemRarity.UNIQUE);
 		player.getInventory().addItem(armor.build());

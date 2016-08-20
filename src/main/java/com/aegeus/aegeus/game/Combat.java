@@ -1,10 +1,10 @@
-package com.aegeus.aegeus;
+package com.aegeus.aegeus.game;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Random;
 
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -16,16 +16,13 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.aegeus.aegeus.obj.AegeusWeapon;
+import com.aegeus.aegeus.game.item.ItemWeapon;
 import com.aegeus.aegeus.util.Helper;
-
-import net.minecraft.server.v1_10_R1.NBTTagCompound;
 
 public class Combat implements Listener {
 
@@ -45,26 +42,20 @@ public class Combat implements Listener {
 				Player player = (Player) entityLastHitBy.get(event.getEntity());
 				if (player.getEquipment().getItemInMainHand() != null){
 					ItemStack item = player.getEquipment().getItemInMainHand();
-					net.minecraft.server.v1_10_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
-					NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
-					NBTTagCompound aegeus = (compound.hasKey("AegeusInfo")) ? compound.getCompound("AegeusInfo") : new NBTTagCompound();
-					int Level = (aegeus.hasKey("Level")) ? aegeus.getInt("Level") : 0;
-					int XP = (aegeus.hasKey("XP")) ? aegeus.getInt("XP") : 0;
+					ItemWeapon weapon = new ItemWeapon(item);
+					int Level = weapon.getLevel();
+					int XP = weapon.getXP();
 					if(Level >= 1){
 						XP += Math.ceil(event.getEntity().getMaxHealth() / 500);
 						if(XP >= Helper.calcMaxXP(Level)){
 							XP = 0;
 							Level += 1;
-							aegeus.setInt("Level", Level);
+							weapon.setLevel(Level);
 							player.sendMessage(Helper.colorCodes("&6Your weapon has reached &lLevel " + Level + "&6."));
 							player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.8f, 1);
 						}
-						aegeus.setInt("XP", XP);
-						compound.set("AegeusInfo", aegeus);
-						item = CraftItemStack.asBukkitCopy(nmsStack);
-						ItemMeta meta = item.getItemMeta();
-						meta.setLore(AegeusWeapon.buildLore(item));
-						item.setItemMeta(meta);
+						weapon.setXP(XP);
+						item = weapon.build();
 						player.getEquipment().setItemInMainHand(item);
 					}
 				}
@@ -79,6 +70,17 @@ public class Combat implements Listener {
 		&& event.getDamager() instanceof LivingEntity){
 			LivingEntity victim = (LivingEntity) event.getEntity();
 			LivingEntity damager = (LivingEntity) event.getDamager();
+			
+			if(damager instanceof Player){
+				Player dp = (Player) damager;
+				Statistics.playerData.get(dp).InCombat = LocalDateTime.now();
+			}
+			
+			if(victim instanceof Player){
+				Player vp = (Player) victim;
+				Statistics.playerData.get(vp).InCombat = LocalDateTime.now();
+			}
+			
 //			if(!playerLastHitTick.containsKey((Player) victim)){
 //				playerLastHitTick.put((Player) victim, System.currentTimeMillis());
 //			}
@@ -101,15 +103,13 @@ public class Combat implements Listener {
 			// Implement custom damage from weapon's lore
 			if(damager.getEquipment().getItemInMainHand() != null && damager.getEquipment().getItemInMainHand().getType() != org.bukkit.Material.AIR){
 				ItemStack item = damager.getEquipment().getItemInMainHand();
-				net.minecraft.server.v1_10_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
-				NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
-				NBTTagCompound aegeus = (compound.hasKey("AegeusInfo")) ? compound.getCompound("AegeusInfo") : new NBTTagCompound();
-				int MinDmg = (aegeus.hasKey("MinDmg")) ? aegeus.getInt("MinDmg") : 0;
-				int MaxDmg = (aegeus.hasKey("MaxDmg")) ? aegeus.getInt("MaxDmg") : 0;
-				int FireDmg = (aegeus.hasKey("FireDmg")) ? aegeus.getInt("FireDmg") : 0;
-				int IceDmg = (aegeus.hasKey("IceDmg")) ? aegeus.getInt("IceDmg") : 0;
-				int LifeSteal = (aegeus.hasKey("LifeSteal")) ? aegeus.getInt("LifeSteal") : 0;
-				int Level = (aegeus.hasKey("Level")) ? aegeus.getInt("Level") : 0;
+				ItemWeapon weapon = new ItemWeapon(item);
+				int MinDmg = weapon.getMinDmg();
+				int MaxDmg = weapon.getMaxDmg();
+				int FireDmg = weapon.getFireDmg();
+				int IceDmg = weapon.getIceDmg();
+				double LifeSteal = weapon.getLifeSteal();
+				int Level = weapon.getLevel();
 				
 				// Normal damage
 				if(MinDmg + MaxDmg > 0){
@@ -137,18 +137,16 @@ public class Combat implements Listener {
 				}
 				
 				// Life steal
-				if(LifeSteal > 0){
-					float percent = (float) LifeSteal / 100;
-					if(damager.getHealth() < damager.getMaxHealth()){
-						double hp = damager.getHealth();
-						double maxhp = damager.getMaxHealth();
-						hp += (basedmg * percent);
-						if(hp > maxhp){
-							hp = maxhp;
-						}
-						damager.setHealth(hp);
-						if(damager.getType().equals(EntityType.PLAYER)) Statistics.updateDisplay((Player) damager);
+				if(LifeSteal > 0
+						&& damager.getHealth() < damager.getMaxHealth()){
+					double hp = damager.getHealth();
+					double maxhp = damager.getMaxHealth();
+					hp += (basedmg * LifeSteal);
+					if(hp > maxhp){
+						hp = maxhp;
 					}
+					damager.setHealth(hp);
+					if(damager.getType().equals(EntityType.PLAYER)) Statistics.updateDisplay((Player) damager);
 				}
 				
 			}

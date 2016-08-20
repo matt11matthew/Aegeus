@@ -1,4 +1,4 @@
-package com.aegeus.aegeus.commands;
+package com.aegeus.aegeus.game.commands;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -6,8 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.aegeus.aegeus.obj.AegeusWeapon;
-import com.aegeus.aegeus.types.ItemRarity;
+import com.aegeus.aegeus.game.item.ItemRarity;
+import com.aegeus.aegeus.game.item.ItemWeapon;
 
 public class CommandTestWeapon implements CommandExecutor {
 
@@ -18,12 +18,12 @@ public class CommandTestWeapon implements CommandExecutor {
 		
 		Player player = (Player) sender;
 		
-		AegeusWeapon wep = new AegeusWeapon(Material.DIAMOND_AXE);
+		ItemWeapon wep = new ItemWeapon(Material.DIAMOND_AXE);
 		wep.setName("&dMordebit Axe of Ice Fire");
 		wep.setDmg(165, 213);
 		wep.setFireDmg(18);
 		wep.setIceDmg(12);
-		wep.setLifeSteal(9);
+		wep.setLifeSteal(0.09);
 		wep.setTier(4);
 		wep.setLevel(1);
 		wep.setRarity(ItemRarity.RARE);

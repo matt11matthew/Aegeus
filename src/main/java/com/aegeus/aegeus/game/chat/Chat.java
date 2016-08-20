@@ -1,4 +1,4 @@
-package com.aegeus.aegeus;
+package com.aegeus.aegeus.game.chat;
 
 import java.util.HashMap;
 
@@ -8,8 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.aegeus.aegeus.methods.ChatMethods;
-import com.aegeus.aegeus.types.ChatChannel;
 import com.aegeus.aegeus.util.Helper;
 
 public class Chat implements Listener {

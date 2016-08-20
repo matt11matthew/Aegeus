@@ -1,5 +1,6 @@
-package com.aegeus.aegeus;
+package com.aegeus.aegeus.game;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 
-import com.aegeus.aegeus.obj.AegeusPlayer;
+import com.aegeus.aegeus.player.PlayerData;
 import com.aegeus.aegeus.util.Helper;
 
 import net.minecraft.server.v1_10_R1.NBTTagCompound;
@@ -33,7 +34,8 @@ public class Statistics implements Listener {
 			@Override
 			public void run() {
 				for(Player player : parent.getServer().getOnlinePlayers()){
-					if(player.getHealth() < player.getMaxHealth()
+					if(playerData.get(player).InCombat.isBefore(LocalDateTime.now().minusSeconds(15))
+							&& player.getHealth() < player.getMaxHealth()
 							&& !player.isDead()){
 						double hp = player.getHealth();
 						double maxhp = player.getMaxHealth();
@@ -49,7 +51,7 @@ public class Statistics implements Listener {
 		}.runTaskTimer(parent, 0, 20);
 	}
 
-	public static Map<Player, AegeusPlayer> playerData = new HashMap<>();
+	public static Map<Player, PlayerData> playerData = new HashMap<>();
 
 	/**
 	 * Updates the statistics of an entity.

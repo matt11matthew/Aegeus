@@ -1,4 +1,4 @@
-package com.aegeus.aegeus;
+package com.aegeus.aegeus.game.mining;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -15,11 +15,13 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Mining implements Listener	{
 	
-	private JavaPlugin plugin;
+	private JavaPlugin parent;
 	
-	public Mining(JavaPlugin p) {
-		plugin = p;
+	public Mining(JavaPlugin parent) {
+		this.parent = parent;
 	}
+	
+	// TODO Change it. ALL OF IT AAAAAAAAAAAAA
 	
 	/*
 	 * These are the values of exp that ores will give you on your pickaxe.
@@ -214,7 +216,7 @@ public class Mining implements Listener	{
 	 * @param t
 	 */
 	private void setTimer(Block b, Material d, int t)	{
-		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable()	{
+		parent.getServer().getScheduler().scheduleSyncDelayedTask(parent, new Runnable()	{
 			public void run() {
 				b.setType(d);
 			}

@@ -1,10 +1,10 @@
-package com.aegeus.aegeus.obj;
+package com.aegeus.aegeus.player;
 
 import java.time.LocalDateTime;
 
 import org.bukkit.boss.BossBar;
 
-public class AegeusPlayer {
+public class PlayerData {
 	
 	public BossBar BossBarHP;
 	

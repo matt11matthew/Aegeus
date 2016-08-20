@@ -5,16 +5,24 @@ import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.aegeus.aegeus.commands.CommandGlobal;
-import com.aegeus.aegeus.commands.CommandMessage;
-import com.aegeus.aegeus.commands.CommandRoll;
-import com.aegeus.aegeus.commands.CommandTestArmor;
-import com.aegeus.aegeus.commands.CommandTestWeapon;
+import com.aegeus.aegeus.game.Bank;
+import com.aegeus.aegeus.game.Combat;
+import com.aegeus.aegeus.game.Mobs;
+import com.aegeus.aegeus.game.Server;
+import com.aegeus.aegeus.game.Statistics;
+import com.aegeus.aegeus.game.chat.Chat;
+import com.aegeus.aegeus.game.commands.CommandChatChannel;
+import com.aegeus.aegeus.game.commands.CommandGlobal;
+import com.aegeus.aegeus.game.commands.CommandMessage;
+import com.aegeus.aegeus.game.commands.CommandRoll;
+import com.aegeus.aegeus.game.commands.CommandTestArmor;
+import com.aegeus.aegeus.game.commands.CommandTestWeapon;
+import com.aegeus.aegeus.game.mining.Mining;
 
 public class Aegeus extends JavaPlugin {
 	
-	public static final String build = "dev";
-	public static final String buildNote = "ASCII boats.";
+	public static final String BUILD = "dev";
+	public static final String BUILD_NOTE = "ASCII boats.";
 	private static final Logger log = Logger.getLogger(Aegeus.class.getName());
 	
 	/**
@@ -43,8 +51,8 @@ public class Aegeus extends JavaPlugin {
 		
 		// Register plugin commands
 		log.log(Level.INFO, "Registering commands...");
+		getCommand("chatchannel").setExecutor(new CommandChatChannel());
 		getCommand("global").setExecutor(new CommandGlobal());
-		getCommand("roll").setExecutor(new CommandRoll());
 		getCommand("message").setExecutor(new CommandMessage());
 		getCommand("roll").setExecutor(new CommandRoll());
 		getCommand("testarmor").setExecutor(new CommandTestArmor());

@@ -1,4 +1,4 @@
-package com.aegeus.aegeus.commands;
+package com.aegeus.aegeus.game.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.aegeus.aegeus.methods.ChatMethods;
+import com.aegeus.aegeus.game.chat.ChatMethods;
 import com.aegeus.aegeus.util.Helper;
 
 public class CommandMessage implements CommandExecutor {

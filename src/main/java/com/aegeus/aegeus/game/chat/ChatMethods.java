@@ -1,4 +1,4 @@
-package com.aegeus.aegeus.methods;
+package com.aegeus.aegeus.game.chat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -6,7 +6,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-import com.aegeus.aegeus.Chat;
 import com.aegeus.aegeus.util.Helper;
 import com.aegeus.aegeus.util.exceptions.NoneNearbyException;
 
@@ -48,7 +47,7 @@ public class ChatMethods {
 		try {
 			sendRadialChat(player, ChatColor.GRAY + player.getDisplayName() + ":" + ChatColor.WHITE + " " + msg);
 		} catch (NoneNearbyException e){
-			player.sendMessage("" + ChatColor.GRAY + ChatColor.ITALIC + "Your voice fades in the wind, as you are alone.");
+			player.sendMessage("" + ChatColor.GRAY + ChatColor.ITALIC + "Your voice echoes in the wind.");
 		}
 	}
 	
@@ -56,7 +55,8 @@ public class ChatMethods {
 		player.sendMessage(msg);
 		boolean peopleNearby = false;
 		for (Entity nearby : player.getNearbyEntities(30, 30, 30)) {
-			if (!nearby.equals(player) && nearby.getType().equals(EntityType.PLAYER)) {
+			if(nearby.getType().equals(EntityType.PLAYER)
+					&& !player.equals((Player) nearby)){
 				peopleNearby = true;
 				nearby.sendMessage(msg);
 			}

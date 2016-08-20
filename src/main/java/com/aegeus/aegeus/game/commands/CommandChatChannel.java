@@ -1,12 +1,12 @@
-package com.aegeus.aegeus.commands;
+package com.aegeus.aegeus.game.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.aegeus.aegeus.Chat;
-import com.aegeus.aegeus.types.ChatChannel;
+import com.aegeus.aegeus.game.chat.Chat;
+import com.aegeus.aegeus.game.chat.ChatChannel;
 import com.aegeus.aegeus.util.Helper;
 
 public class CommandChatChannel implements CommandExecutor {
@@ -20,17 +20,16 @@ public class CommandChatChannel implements CommandExecutor {
 		
 		if (args[0].equalsIgnoreCase("l") || args[0].equalsIgnoreCase("local")) {
 			Chat.playerChatChannel.put(player, ChatChannel.LOCAL);
-			sender.sendMessage(Helper.colorCodes(
+			player.sendMessage(Helper.colorCodes(
 					"Chat channel set to Local."));
 			return true;
 		} else if (args[0].equalsIgnoreCase("gl") || args[0].equalsIgnoreCase("global")) {
 			Chat.playerChatChannel.put(player, ChatChannel.GLOBAL);
-			sender.sendMessage(Helper.colorCodes(
+			player.sendMessage(Helper.colorCodes(
 					"Chat channel set to Global."));
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 }

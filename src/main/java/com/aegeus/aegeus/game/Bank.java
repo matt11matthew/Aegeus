@@ -1,4 +1,4 @@
-package com.aegeus.aegeus;
+package com.aegeus.aegeus.game;
 
 import java.io.IOException;
 import java.util.HashMap;
