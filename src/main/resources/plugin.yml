@@ -2,7 +2,7 @@ name: Aegeus
 version: dev
 description: We need more than a weapon.
 authors: [oopsjpeg, Silvre, matt11matthew]
-main: aegeus.com.aegeus.Aegeus
+main: com.aegeus.aegeus.Aegeus
 
 commands:
     global:
