@@ -27,17 +27,17 @@ import aegeus.com.aegeus.types.ItemRarity;
 import aegeus.com.aegeus.util.Helper;
 
 public class Aegeus extends JavaPlugin {
-	
+
 	public static final String build = "dev";
 	public static final String buildNote = "Testing build.";
-	
-	
-	
+
+
+
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
 		getLogger().log(Level.INFO, "Aegeus enabling...");
-		
+
 		// Register plugin events
 		// TODO Clean up, move to organized packages
 		getServer().getPluginManager().registerEvents(new Server(this), this);
@@ -47,7 +47,7 @@ public class Aegeus extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new Mining(this), this);
 		getServer().getPluginManager().registerEvents(new Statistics(this), this);
 		getServer().getPluginManager().registerEvents(new Bank(this), this);
-		
+
 		// Register plugin commands
 		getCommand("global").setExecutor(new CommandGlobal());
 		getCommand("roll").setExecutor(new CommandRoll());
@@ -55,7 +55,7 @@ public class Aegeus extends JavaPlugin {
 		getCommand("roll").setExecutor(new CommandRoll());
 		getCommand("testarmor").setExecutor(new CommandTestArmor());
 		getCommand("testweapon").setExecutor(new CommandTestWeapon());
-		
+
 		getLogger().log(Level.INFO, "Aegeus enabled.");
 	}
 
