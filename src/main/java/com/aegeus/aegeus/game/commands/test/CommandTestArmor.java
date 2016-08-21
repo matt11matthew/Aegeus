@@ -1,4 +1,4 @@
-package com.aegeus.aegeus.game.commands;
+package com.aegeus.aegeus.game.commands.test;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;

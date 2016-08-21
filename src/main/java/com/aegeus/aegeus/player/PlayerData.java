@@ -4,9 +4,13 @@ import java.time.LocalDateTime;
 
 import org.bukkit.boss.BossBar;
 
+import com.aegeus.aegeus.game.planets.Planet;
+import com.aegeus.aegeus.game.planets.Planets;
+
 public class PlayerData {
 	
 	public BossBar BossBarHP;
+	public Planet CurrentPlanet = Planets.TERMINAL.getPlanet();
 	
 //	private AlignmentType Alignment = AlignmentType.LAWFUL;
 //	private HorseType Horse = null;

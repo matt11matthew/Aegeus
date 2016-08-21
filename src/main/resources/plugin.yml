@@ -19,7 +19,10 @@ commands:
     chatchannel:
       description: Changes your default chat channel.
       aliases: [cc, chat, channel]
-      usage: /chatchannel <channel>
+      usage: /chatchannel <local / global>
+    planet:
+      description: Change planets.
+      usage: /planet <planet>
     testweapon:
       description: Test weapons.
     testarmor:

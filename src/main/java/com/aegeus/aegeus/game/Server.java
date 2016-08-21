@@ -21,8 +21,6 @@ import com.aegeus.aegeus.game.chat.ChatChannel;
 import com.aegeus.aegeus.player.PlayerData;
 import com.aegeus.aegeus.util.Helper;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class Server implements Listener {
 
 	private JavaPlugin parent;
