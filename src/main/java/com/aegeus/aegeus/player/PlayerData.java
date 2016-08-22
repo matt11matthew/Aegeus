@@ -4,17 +4,15 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.bukkit.boss.BossBar;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-/**
- * 
- * @author Dylan
- *
- */
+import com.aegeus.aegeus.game.planets.Planet;
+import com.aegeus.aegeus.game.planets.Planets;
+
 public class PlayerData {
 	
 	public BossBar BossBarHP;
+	public Planet CurrentPlanet = Planets.TERMINAL.getPlanet();
 	private UUID uuid;
 	
 //	private AlignmentType Alignment = AlignmentType.LAWFUL;
@@ -42,12 +40,12 @@ public class PlayerData {
 	 * Get the bank of the player.
 	 * @return Player's Bank
 	 */
-	public Inventory getBank()	{ return bank;	}
+	public Inventory getBank()	{ return bank; }
 	
 	/**
 	 * Set the bank of the player.
 	 * @param inv
 	 */
-	public void setBank(Inventory inv)	{ bank = inv;	} 
+	public void setBank(Inventory inv)	{ bank = inv; } 
 	
 }
