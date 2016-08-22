@@ -1,6 +1,10 @@
 package com.aegeus.aegeus;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Level;
+import com.aegeus.aegeus.player.PlayerData;
 import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,9 +19,8 @@ import com.aegeus.aegeus.game.commands.CommandChatChannel;
 import com.aegeus.aegeus.game.commands.CommandGlobal;
 import com.aegeus.aegeus.game.commands.CommandMessage;
 import com.aegeus.aegeus.game.commands.CommandRoll;
-import com.aegeus.aegeus.game.commands.CommandPlanet;
-import com.aegeus.aegeus.game.commands.test.CommandTestArmor;
-import com.aegeus.aegeus.game.commands.test.CommandTestWeapon;
+import com.aegeus.aegeus.game.commands.CommandTestArmor;
+import com.aegeus.aegeus.game.commands.CommandTestWeapon;
 import com.aegeus.aegeus.game.mining.Mining;
 
 public class Aegeus extends JavaPlugin {
@@ -55,7 +58,6 @@ public class Aegeus extends JavaPlugin {
 		getCommand("chatchannel").setExecutor(new CommandChatChannel());
 		getCommand("global").setExecutor(new CommandGlobal());
 		getCommand("message").setExecutor(new CommandMessage());
-		getCommand("planet").setExecutor(new CommandPlanet());
 		getCommand("roll").setExecutor(new CommandRoll());
 		getCommand("testarmor").setExecutor(new CommandTestArmor());
 		getCommand("testweapon").setExecutor(new CommandTestWeapon());

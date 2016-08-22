@@ -8,7 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.aegeus.aegeus.game.chat.ChatManager;
+import com.aegeus.aegeus.game.chat.ChatMethods;
 import com.aegeus.aegeus.util.Helper;
 import com.aegeus.aegeus.util.exceptions.NoneNearbyException;
 
@@ -30,7 +30,7 @@ public class CommandRoll implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			try {
-				ChatManager.sendRadialChat(player, Helper.colorCodes(
+				ChatMethods.sendRadialChat(player, Helper.colorCodes(
 						"&f" + player.getDisplayName() + "&7 rolled a &f" + roll + "&7 out of &f" + max + "&7."));
 			} catch (NoneNearbyException e){
 				player.sendMessage("" + ChatColor.GRAY + ChatColor.ITALIC + "The sound of your dice rolling echoes in the lonely wind.");

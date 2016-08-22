@@ -28,9 +28,9 @@ public class Chat implements Listener {
 		Player player = event.getPlayer();
 		if(!Chat.playerChatChannel.containsKey(player)) Chat.playerChatChannel.put(player, ChatChannel.LOCAL);
 		if (Chat.playerChatChannel.get(player).equals(ChatChannel.GLOBAL)) {
-			ChatManager.sendGlobalChat(player, Helper.colorCodes(event.getMessage()));
+			ChatMethods.sendGlobalChat(player, Helper.colorCodes(event.getMessage()));
 		} else {
-			ChatManager.sendLocalChat(player, Helper.colorCodes(event.getMessage()));
+			ChatMethods.sendLocalChat(player, Helper.colorCodes(event.getMessage()));
 		}
 	}
 }

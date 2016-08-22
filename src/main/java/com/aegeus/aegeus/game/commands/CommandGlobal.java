@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.aegeus.aegeus.game.chat.ChatManager;
+import com.aegeus.aegeus.game.chat.ChatMethods;
 import com.aegeus.aegeus.util.Helper;
 
 public class CommandGlobal implements CommandExecutor {
@@ -18,7 +18,7 @@ public class CommandGlobal implements CommandExecutor {
 		Player player = (Player) sender;
 		String msg = Helper.buildArgString(args, 0);
 		
-		ChatManager.sendAutoChat(player, msg.trim());
+		ChatMethods.sendAutoChat(player, msg.trim());
 		
 		return true;
 	}

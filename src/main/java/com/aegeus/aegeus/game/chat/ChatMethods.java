@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import com.aegeus.aegeus.util.Helper;
 import com.aegeus.aegeus.util.exceptions.NoneNearbyException;
 
-public class ChatManager {
+public class ChatMethods {
 	
 	public static void sendAutoChat(Player player, String msg){
 		String[] split = msg.split(" ");

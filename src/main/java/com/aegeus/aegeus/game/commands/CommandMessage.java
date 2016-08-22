@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.aegeus.aegeus.game.chat.ChatManager;
+import com.aegeus.aegeus.game.chat.ChatMethods;
 import com.aegeus.aegeus.util.Helper;
 
 public class CommandMessage implements CommandExecutor {
@@ -20,7 +20,7 @@ public class CommandMessage implements CommandExecutor {
 		Player target = Bukkit.getPlayer(args[0]);
 		String msg = Helper.buildArgString(args, 1);
 		
-		ChatManager.sendPrivateMessage(player, target, msg.trim());
+		ChatMethods.sendPrivateMessage(player, target, msg.trim());
 		return true;
 	}
 
