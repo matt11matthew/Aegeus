@@ -19,15 +19,16 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.aegeus.aegeus.player.PlayerData;
 import com.aegeus.aegeus.util.InventorytoBase64;
 
 public class Bank implements Listener{
 	private JavaPlugin parent;
-	private Map<UUID, String> data = new HashMap<>(); //Map containing bank data for the players.  UUID = Player UUID, String = Base 64 Serialized Inventory.
 	
 	/**
 	 * Main constructor
@@ -43,20 +44,7 @@ public class Bank implements Listener{
 			//The player has opened a vanilla ender chest.  Let's cancel it and give them our custom ender chest with more customizability.
 			e.setCancelled(true);
 			Player p = (Player) e.getPlayer();
-			Inventory inv = Bukkit.createInventory(p, 9, "Bank");
-			ItemStack block = new ItemStack(Material.GOLD_BLOCK);
-			ItemMeta blockMeta = block.getItemMeta();
-			blockMeta.setDisplayName(ChatColor.GOLD + "0 Gold(Test)");
-			block.setItemMeta(blockMeta);
-			inv.setItem(inv.getSize() - 1, block);
-			if(!data.get(p.getUniqueId()).equals(null))	{
-				try {
-					inv = InventorytoBase64.fromBase64(data.get(p.getUniqueId()), "Bank");
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					p.getServer().getLogger().log(Level.INFO, "Could not read from string to inventory while loading bank.", e1);
-				}
-			}
+			Inventory inv = Statistics.playerData.get(p).getBank() != null ? Statistics.playerData.get(p).getBank() : generateEmptyBank(p);
 			p.openInventory(inv);
 		}
 	}
@@ -65,7 +53,8 @@ public class Bank implements Listener{
 	public void onCloseChest(InventoryCloseEvent e)	{
 		if(e.getInventory().getName().equalsIgnoreCase("Bank"))	{
 			//The player has closed our custom bank inventory.  Spit out the contents of the array as a string to the console.
-			data.put(e.getPlayer().getUniqueId(), InventorytoBase64.toBase64(e.getInventory()));
+			PlayerData playerinfo = Statistics.playerData.get(e.getPlayer());
+			playerinfo.setBank(e.getInventory());
 		}
 	}
 	
@@ -76,8 +65,63 @@ public class Bank implements Listener{
 	
 	@EventHandler
 	public void onBlockInteractEvent(PlayerInteractEvent e)	{
-		if(e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getPlayer().isSneaking() && e.getClickedBlock().getType() == Material.ENDER_CHEST)	{
-			e.getPlayer().sendMessage(ChatColor.AQUA + "You Shift-Right Clicked an Ender Chest Block!");
+		ItemStack itemInHand = e.getPlayer().getInventory().getItemInMainHand();
+		if(e.getAction() == Action.RIGHT_CLICK_BLOCK && itemInHand.getType() == Material.NETHER_STAR && itemInHand.getItemMeta().getDisplayName().equals(ChatColor.GOLD + "Bank Upgrade Module") && e.getClickedBlock().getType() == Material.ENDER_CHEST)	{
+			e.setCancelled(true);
+			if(Statistics.playerData.get(e.getPlayer()).getBank().getSize() != 54)	{
+				ItemStack module = new ItemStack(Material.NETHER_STAR);
+				ItemMeta meta = module.getItemMeta();
+				meta.setDisplayName(ChatColor.GOLD + "Bank Upgrade Module");
+				module.setItemMeta(meta);
+				e.getPlayer().getInventory().remove(module);
+				Statistics.playerData.get(e.getPlayer()).setBank(upgradeBank(Statistics.playerData.get(e.getPlayer()).getBank(), e.getPlayer()));
+				e.getPlayer().sendMessage("" + ChatColor.AQUA + "Your bank has been upgraded to " + ChatColor.GREEN + ChatColor.BOLD + Statistics.playerData.get(e.getPlayer()).getBank().getSize() + ChatColor.AQUA + " slots!");
+			}
 		}
+	}
+	
+	/**
+	 * Method used for upgrade your bank 9 slots bigger.  Only call this method if you know they have not reached the max size of bank.
+	 * @param source
+	 * @param owner
+	 * @return Upgraded inventory with original contents.
+	 */
+	private Inventory upgradeBank(Inventory source, InventoryHolder owner)	{
+		Inventory target = null;
+		switch(source.getSize())	{
+			case 9:
+				target = Bukkit.createInventory(owner, 18, "Bank");
+				break;
+			case 18:
+				target = Bukkit.createInventory(owner, 27, "Bank");
+				break;
+			case 27:
+				target = Bukkit.createInventory(owner, 36, "Bank");
+				break;
+			case 36:
+				target = Bukkit.createInventory(owner, 45, "Bank");
+				break;
+			case 45:
+				target = Bukkit.createInventory(owner, 54, "Bank");
+				break;
+		}
+		ItemStack gold = source.getItem(source.getSize() - 1);
+		source.remove(source.getItem(source.getSize() - 1)); //Remove the gold withdraw / deposit item so we can put it in the last slot of the new inventory
+		ItemStack[] contents = source.getContents();
+		for(int i = 0; i < contents.length; i++)	{ //Move the contents from the old inventory to the new one.
+			target.setItem(i, contents[i]);
+		}
+		target.setItem(target.getSize() - 1, gold);
+		return target;
+	}
+	
+	private Inventory generateEmptyBank(InventoryHolder owner)	{
+		Inventory i = Bukkit.createInventory(owner, 9, "Bank");
+		ItemStack item = new ItemStack(Material.GOLD_BLOCK);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(ChatColor.GOLD + "0 Gold");
+		item.setItemMeta(meta);
+		i.setItem(8, item);
+		return i;
 	}
 }
