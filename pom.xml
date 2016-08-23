@@ -59,5 +59,10 @@
 			<artifactId>craftbukkit</artifactId>
 			<version>1.10-R0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver</artifactId>
+			<version>3.0.4</version>
+		</dependency>
 	</dependencies>
 </project>

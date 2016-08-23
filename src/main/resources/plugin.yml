@@ -29,3 +29,5 @@ commands:
       description: Test armor.
     testinv:
       description: Test inventory.
+    spacecart:
+      description: create spaceboats and shit.
