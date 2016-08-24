@@ -6,6 +6,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import com.aegeus.aegeus.player.PlayerData;
 import com.aegeus.aegeus.util.Helper;
 import com.aegeus.aegeus.util.exceptions.NoneNearbyException;
 
@@ -56,7 +57,7 @@ public class ChatManager {
 		boolean peopleNearby = false;
 		for (Entity nearby : player.getNearbyEntities(30, 30, 30)) {
 			if(nearby.getType().equals(EntityType.PLAYER)
-					&& !player.equals((Player) nearby)){
+					&& !nearby.equals((Entity) player)){
 				peopleNearby = true;
 				nearby.sendMessage(msg);
 			}
@@ -81,7 +82,7 @@ public class ChatManager {
 			target.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "FROM: " + ChatColor.GREEN
 					+ sender.getDisplayName() + ChatColor.GRAY + " - " + ChatColor.WHITE + message.trim());
 			target.playSound(target.getLocation(), "mob.chicken.plop", 100, 1);
-			Chat.playerReply.put(target, sender);
+			PlayerData.get(target).setReplyTo(sender);
 		} else {
 			sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + target.getDisplayName() + ChatColor.RED
 					+ " is offline or does not exist.");

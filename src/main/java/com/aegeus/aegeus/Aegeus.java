@@ -1,17 +1,12 @@
 package com.aegeus.aegeus;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import java.util.logging.Level;
-import com.aegeus.aegeus.player.PlayerData;
 import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.aegeus.aegeus.game.Bank;
 import com.aegeus.aegeus.game.Combat;
-import com.aegeus.aegeus.game.Mobs;
 import com.aegeus.aegeus.game.Server;
 import com.aegeus.aegeus.game.Statistics;
 import com.aegeus.aegeus.game.chat.Chat;
@@ -33,7 +28,7 @@ public class Aegeus extends JavaPlugin {
 	
 	/**
 	 * 
-	 * Created by oopsjpeg, Silvre, and matt11matthew.
+	 * Created by oopsjpeg and Silvre.
 	 * There's probably one or two boats in this project.
 	 * M 8, D 19, Y 2016
 	 * 
@@ -45,12 +40,12 @@ public class Aegeus extends JavaPlugin {
 		saveDefaultConfig();
 		
 		// Register plugin events
-		// TODO Clean up, move to organized packages
+		// TODO Clean up a bit?
 		log.log(Level.INFO, "Registering events...");
 		getServer().getPluginManager().registerEvents(new Server(this), this);
 		getServer().getPluginManager().registerEvents(new Combat(this), this);
 		getServer().getPluginManager().registerEvents(new Chat(this), this);
-		getServer().getPluginManager().registerEvents(new Mobs(this), this);
+//		getServer().getPluginManager().registerEvents(new Mobs(this), this);
 		getServer().getPluginManager().registerEvents(new Mining(this), this);
 		getServer().getPluginManager().registerEvents(new Statistics(this), this);
 		getServer().getPluginManager().registerEvents(new Bank(this), this);

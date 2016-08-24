@@ -1,12 +1,7 @@
 package com.aegeus.aegeus.game;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
@@ -18,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 
 import com.aegeus.aegeus.player.PlayerData;
@@ -28,20 +22,20 @@ import net.minecraft.server.v1_10_R1.NBTTagCompound;
 
 public class Statistics implements Listener {
 
-	private JavaPlugin parent;
+//	private JavaPlugin parent;
 
 	public Statistics(JavaPlugin parent) {
-		this.parent = parent;
+//		this.parent = parent;
 //		new BukkitRunnable(){
 //			@Override
 //			public void run() {
 //				for(Player player : parent.getServer().getOnlinePlayers()){
-//					if(playerData.get(player).InCombat.isBefore(LocalDateTime.now().minusSeconds(15))
+//					if(PlayerData.get(player).InCombat.isBefore(LocalDateTime.now().minusSeconds(15))
 //							&& player.getHealth() < player.getMaxHealth()
 //							&& !player.isDead()){
 //						double hp = player.getHealth();
 //						double maxhp = player.getMaxHealth();
-//						hp += (5 + playerData.get(player).getHPRegen());
+//						hp += (5 + PlayerData.get(player).getHPRegen());
 //						if(hp > maxhp){
 //							hp = maxhp;
 //						}
@@ -52,8 +46,6 @@ public class Statistics implements Listener {
 //			}
 //		}.runTaskTimer(parent, 0, 20);
 	}
-
-	public static Map<Player, PlayerData> playerData = new HashMap<>();
 
 	/**
 	 * Updates the statistics of an entity.
@@ -106,8 +98,8 @@ public class Statistics implements Listener {
 		
 		if (entity.getType().equals(EntityType.PLAYER)) {
 			Hp += 95;
-			playerData.get((Player) entity).setHPRegen(HpRegen);
-			playerData.get((Player) entity).setEnergyRegen(EnergyRegen);
+			PlayerData.get((Player) entity).setHPRegen(HpRegen);
+			PlayerData.get((Player) entity).setEnergyRegen(EnergyRegen);
 		}
 
 		entity.setMaxHealth(Hp);
@@ -136,11 +128,11 @@ public class Statistics implements Listener {
 	 *            Player to update.
 	 */
 	public static void updateDisplay(Player player) {
-		if (playerData.get(player).bossBarHP == null) {
+		if (PlayerData.get(player).getBossBarHP() == null) {
 			// Create a new Hp BossBar for this player
-			playerData.get(player).bossBarHP = Bukkit.createBossBar("", BarColor.GREEN, BarStyle.SEGMENTED_20);
-			playerData.get(player).bossBarHP.addPlayer(player);
-			playerData.get(player).bossBarHP.setVisible(true);
+			PlayerData.get(player).setBossBarHP(Bukkit.createBossBar("", BarColor.GREEN, BarStyle.SEGMENTED_20));
+			PlayerData.get(player).getBossBarHP().addPlayer(player);
+			PlayerData.get(player).getBossBarHP().setVisible(true);
 		}
 		if (Bukkit.getScoreboardManager().getMainScoreboard().getObjective("hp") == null) {
 			// Create an objective for BelowNameHP
@@ -153,8 +145,8 @@ public class Statistics implements Listener {
 		Bukkit.getScoreboardManager().getMainScoreboard().getObjective("hp").getScore(player.getName())
 				.setScore((int) Math.round(player.getHealth()));
 		// Set HP BossBar
-		playerData.get(player).bossBarHP.setProgress(player.getHealth() / player.getMaxHealth());
-		playerData.get(player).bossBarHP.setTitle(Helper.colorCodes(
+		PlayerData.get(player).getBossBarHP().setProgress(player.getHealth() / player.getMaxHealth());
+		PlayerData.get(player).getBossBarHP().setTitle(Helper.colorCodes(
 				"&a" + Math.round(player.getHealth()) + " / " + Math.round(player.getMaxHealth()) + " &lHP"));
 	}
 

@@ -1,15 +1,14 @@
 package com.aegeus.aegeus.game;
 
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class Mobs implements Listener {
 
-	private JavaPlugin parent;
-
-	public Mobs(JavaPlugin parent) {
-		this.parent = parent;
-	}
+//	private JavaPlugin parent;
+//
+//	public Mobs(JavaPlugin parent) {
+//		this.parent = parent;
+//	}
 	
 //	public static void create(JavaPlugin parent, World world, Location loc, String tier, String type) {
 //		LivingEntity entity = (LivingEntity) world.spawnEntity(loc, getEntityType(tier, type));

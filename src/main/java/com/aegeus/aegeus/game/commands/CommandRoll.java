@@ -22,6 +22,8 @@ public class CommandRoll implements CommandExecutor {
 			catch (NumberFormatException e) { return false; }
 		}
 		
+		if (max > 100000) max = 100000;
+		
 		Random random = new Random();
 		int roll = random.nextInt(max);
 		sender.sendMessage(Helper.colorCodes(
@@ -31,9 +33,9 @@ public class CommandRoll implements CommandExecutor {
 			Player player = (Player) sender;
 			try {
 				ChatManager.sendRadialChat(player, Helper.colorCodes(
-						"&f" + player.getDisplayName() + "&7 rolled a &f" + roll + "&7 out of &f" + max + "&7."));
+						"&7" + player.getDisplayName() + " rolled a &f" + roll + "&7 out of &f" + max + "&7."));
 			} catch (NoneNearbyException e){
-				player.sendMessage("" + ChatColor.GRAY + ChatColor.ITALIC + "The sound of your dice rolling echoes in the lonely wind.");
+				player.sendMessage("" + ChatColor.GRAY + ChatColor.ITALIC + "The sound of your dice rolling echoes in the wind.");
 			}
 		}
 		return true;

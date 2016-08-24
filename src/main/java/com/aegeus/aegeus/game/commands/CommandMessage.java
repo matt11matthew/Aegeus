@@ -18,6 +18,12 @@ public class CommandMessage implements CommandExecutor {
 		
 		Player player = (Player) sender;
 		Player target = Bukkit.getPlayer(args[0]);
+		
+		if(player.equals(target)){
+			player.sendMessage(Helper.colorCodes("&cDon't do that! That's weird!"));
+			return true;
+		}
+		
 		String msg = Helper.buildArgString(args, 1);
 		
 		ChatManager.sendPrivateMessage(player, target, msg.trim());

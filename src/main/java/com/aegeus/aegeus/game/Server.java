@@ -16,17 +16,15 @@ import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.aegeus.aegeus.Aegeus;
-import com.aegeus.aegeus.game.chat.Chat;
-import com.aegeus.aegeus.game.chat.ChatChannel;
 import com.aegeus.aegeus.player.PlayerData;
 import com.aegeus.aegeus.util.Helper;
 
 public class Server implements Listener {
 
-	private JavaPlugin parent;
+//	private JavaPlugin parent;
 
 	public Server(JavaPlugin parent) {
-		this.parent = parent;
+//		this.parent = parent;
 //		Runnable checkBySecond = new Runnable() {
 //			public void run() {
 //				if (buffLootTime > 0) {
@@ -127,10 +125,7 @@ public class Server implements Listener {
 	// Login messages and initial player setup
 	// TODO clean this
 	private void onJoinEvent(PlayerJoinEvent event) throws InterruptedException {
-		Chat.playerChatChannel.put(event.getPlayer(), ChatChannel.LOCAL);
 		Player player = event.getPlayer();
-		// TODO load player's data from file
-		Statistics.playerData.put(player, new PlayerData());
 		event.setJoinMessage("");
 		player.setHealthScaled(true);
 		player.setHealthScale(20);
@@ -156,7 +151,7 @@ public class Server implements Listener {
 	// Clear user information and punish combat loggers
 	private void onLogoutEvent(PlayerQuitEvent event) {
 		event.setQuitMessage("");
-		Statistics.playerData.remove(event.getPlayer());
+		PlayerData.remove(event.getPlayer());
 	}
 
 	@EventHandler

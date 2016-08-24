@@ -1,14 +1,7 @@
 package com.aegeus.aegeus.game;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.logging.Level;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
@@ -19,21 +12,16 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Vector;
 
 import com.aegeus.aegeus.player.PlayerData;
-import com.aegeus.aegeus.util.InventorytoBase64;
 
 public class Bank implements Listener{
 	private JavaPlugin parent;
@@ -52,7 +40,7 @@ public class Bank implements Listener{
 			//The player has opened a vanilla ender chest.  Let's cancel it and give them our custom ender chest with more customizability.
 			e.setCancelled(true);
 			Player p = (Player) e.getPlayer();
-			Inventory inv = Statistics.playerData.get(p).getBank() != null ? Statistics.playerData.get(p).getBank() : generateEmptyBank(p);
+			Inventory inv = PlayerData.get(p).getBank() != null ? PlayerData.get(p).getBank() : generateEmptyBank(p);
 			p.openInventory(inv);
 		}
 	}
@@ -61,7 +49,7 @@ public class Bank implements Listener{
 	public void onCloseChest(InventoryCloseEvent e)	{
 		if(e.getInventory().getName().equalsIgnoreCase("Bank"))	{
 			//The player has closed our custom bank inventory.  Spit out the contents of the array as a string to the console.
-			PlayerData playerinfo = Statistics.playerData.get(e.getPlayer());
+			PlayerData playerinfo = PlayerData.get((Player) e.getPlayer());
 			playerinfo.setBank(e.getInventory());
 		}
 	}
@@ -74,7 +62,7 @@ public class Bank implements Listener{
 				public void run()	{
 					e.getWhoClicked().closeInventory();
 					e.getWhoClicked().sendMessage("" + ChatColor.GRAY + ChatColor.ITALIC + "Enter the amount of gold that you would like to " + ChatColor.BOLD + "withdraw" + ChatColor.GRAY + ChatColor.ITALIC + ".");
-					Statistics.playerData.get(e.getWhoClicked()).isBankWithdraw = true;
+					PlayerData.get((Player) e.getWhoClicked()).setBankWithdraw(true);
 				}
 			}
 					);
@@ -86,14 +74,14 @@ public class Bank implements Listener{
 		ItemStack itemInHand = e.getPlayer().getInventory().getItemInMainHand();
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK && itemInHand.getType() == Material.NETHER_STAR && itemInHand.getItemMeta().getDisplayName().equals(ChatColor.GOLD + "Bank Upgrade Module") && e.getClickedBlock().getType() == Material.ENDER_CHEST)	{
 			e.setCancelled(true);
-			if(Statistics.playerData.get(e.getPlayer()).getBank().getSize() != 54)	{
+			if(PlayerData.get(e.getPlayer()).getBank().getSize() != 54)	{
 				ItemStack module = new ItemStack(Material.NETHER_STAR);
 				ItemMeta meta = module.getItemMeta();
 				meta.setDisplayName(ChatColor.GOLD + "Bank Upgrade Module");
 				module.setItemMeta(meta);
 				e.getPlayer().getInventory().remove(module);
-				Statistics.playerData.get(e.getPlayer()).setBank(upgradeBank(Statistics.playerData.get(e.getPlayer()).getBank(), e.getPlayer()));
-				e.getPlayer().sendMessage("" + ChatColor.AQUA + "Your bank has been upgraded to " + ChatColor.GREEN + ChatColor.BOLD + Statistics.playerData.get(e.getPlayer()).getBank().getSize() + ChatColor.AQUA + " slots!");
+				PlayerData.get(e.getPlayer()).setBank(upgradeBank(PlayerData.get(e.getPlayer()).getBank(), e.getPlayer()));
+				e.getPlayer().sendMessage("" + ChatColor.AQUA + "Your bank has been upgraded to " + ChatColor.GREEN + ChatColor.BOLD + PlayerData.get(e.getPlayer()).getBank().getSize() + ChatColor.AQUA + " slots!");
 			}
 		}
 	}

@@ -1,30 +1,37 @@
 package com.aegeus.aegeus.player;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.boss.BossBar;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
+import com.aegeus.aegeus.game.chat.ChatChannel;
 import com.aegeus.aegeus.game.planets.Planet;
+import com.aegeus.aegeus.game.planets.Terminal;
 
 public class PlayerData {
 	
-	public BossBar bossBarHP;
-	public Planet currentPlanet;
+	private static Map<Player, PlayerData> data = new HashMap<>();
+	
+	private BossBar bossBarHP;
+	private Planet currentPlanet = new Terminal();
 //	private UUID uuid;
 	
 //	private AlignmentType Alignment = AlignmentType.LAWFUL;
 //	private HorseType Horse = null;
 	
-	public LocalDateTime inCombat = LocalDateTime.now().minusSeconds(15);
-	public int level = 0;
-	public int hp = 0;
-	public int hpRegen = 0;
-	public int energyRegen = 0;
+	private LocalDateTime inCombat = LocalDateTime.now().minusSeconds(15);
+//	private LocalDateTime lastAttack = LocalDateTime.now();
+	private Player replyTo;
+	private ChatChannel chatChannel = ChatChannel.LOCAL;
+	private int level = 0;
+	private int hpRegen = 0;
+	private int energyRegen = 0;
 //	private int gold = 0;
 	private Inventory bank;
-	public boolean isBankWithdraw = false;
+	private boolean isBankWithdraw = false;
 	
 //	private int Dex = 0;
 //	private int Str = 0;
@@ -36,30 +43,49 @@ public class PlayerData {
 //	private int Thorns = 0;
 //	private int GoldFind = 0;
 	
-	/**
-	 * Get the bank of the player.
-	 * @return Player's Bank
-	 */
-	public Inventory getBank()	{ return bank; }
+	public BossBar getBossBarHP() { return bossBarHP; }
+	public void setBossBarHP(BossBar bossBarHP) { this.bossBarHP = bossBarHP; }
+
+	public Planet getCurrentPlanet() { return currentPlanet; }
+	public void setCurrentPlanet(Planet currentPlanet) { this.currentPlanet = currentPlanet; }
 	
-	/**
-	 * Set the bank of the player.
-	 * @param inv
-	 */
-	public void setBank(Inventory inv)	{ bank = inv; } 
+	public LocalDateTime getInCombat() { return inCombat; }
+	public void setInCombat(LocalDateTime inCombat) { this.inCombat = inCombat; }
 	
-	public int getLevel()	{ return level;	}
+	public Player getReplyTo() { return replyTo; }
+	public void setReplyTo(Player replyTo) { this.replyTo = replyTo; }
 	
-	public void setLevel(int l)	{ level = l; }
+	public ChatChannel getChatChannel() { return chatChannel; }
+	public void setChatChannel(ChatChannel chatChannel) { this.chatChannel = chatChannel; }
 	
-	public int getHP()	{ return hp;	}
+	public int getLevel() { return level; }
+	public void setLevel(int level) { this.level = level; }
 	
-	public int getHPRegen()	{ return hpRegen; }
-	
-	public void setHPRegen(int t)	{ hpRegen = t; }
+	public int getHPRegen() { return hpRegen; }
+	public void setHPRegen(int hpRegen) { this.hpRegen = hpRegen; }
 	
 	public int getEnergyRegen()	{ return energyRegen; }
+	public void setEnergyRegen(int energyRegen) { this.energyRegen = energyRegen; }
 	
-	public void setEnergyRegen(int t)	{ energyRegen = t; }
+	public Inventory getBank() { return bank; }
+	public void setBank(Inventory bank) { this.bank = bank; } 
+	
+	public boolean getBankWithdraw() { return isBankWithdraw; }
+	public void setBankWithdraw(boolean isBankWithdraw) { this.isBankWithdraw = isBankWithdraw; }
+	
+	public static PlayerData get(Player player){
+		if(!data.containsKey(player)){
+			// TODO Load from database
+			data.put(player, new PlayerData());
+		}
+		return data.get(player);
+	}
+	
+	public static void remove(Player player){
+		if(data.containsKey(player)){
+			// TODO Save to database
+			data.remove(player);
+		}
+	}
 	
 }

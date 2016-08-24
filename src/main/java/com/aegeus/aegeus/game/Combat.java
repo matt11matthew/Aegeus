@@ -22,6 +22,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.aegeus.aegeus.game.item.ItemWeapon;
+import com.aegeus.aegeus.player.PlayerData;
 import com.aegeus.aegeus.util.Helper;
 
 public class Combat implements Listener {
@@ -33,7 +34,6 @@ public class Combat implements Listener {
 	}
 
 	private static HashMap<Entity, Entity> entityLastHitBy = new HashMap<>();
-	//private static HashMap<Player, Long> playerLastHitTick = new HashMap<>();
 
 	@EventHandler
 	private void onEntityDeath(EntityDeathEvent event){
@@ -73,12 +73,12 @@ public class Combat implements Listener {
 			
 			if(damager instanceof Player){
 				Player dp = (Player) damager;
-				Statistics.playerData.get(dp).inCombat = LocalDateTime.now();
+				PlayerData.get(dp).setInCombat(LocalDateTime.now());
 			}
 			
 			if(victim instanceof Player){
 				Player vp = (Player) victim;
-				Statistics.playerData.get(vp).inCombat = LocalDateTime.now();
+				PlayerData.get(vp).setInCombat(LocalDateTime.now());
 			}
 			
 //			if(!playerLastHitTick.containsKey((Player) victim)){
