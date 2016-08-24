@@ -32,25 +32,25 @@ public class Statistics implements Listener {
 
 	public Statistics(JavaPlugin parent) {
 		this.parent = parent;
-		new BukkitRunnable(){
-			@Override
-			public void run() {
-				for(Player player : parent.getServer().getOnlinePlayers()){
-					if(playerData.get(player).InCombat.isBefore(LocalDateTime.now().minusSeconds(15))
-							&& player.getHealth() < player.getMaxHealth()
-							&& !player.isDead()){
-						double hp = player.getHealth();
-						double maxhp = player.getMaxHealth();
-						hp += (5 + playerData.get(player).HpRegen);
-						if(hp > maxhp){
-							hp = maxhp;
-						}
-						player.setHealth(hp);
-						updateDisplay(player);
-					}
-				}
-			}
-		}.runTaskTimer(parent, 0, 20);
+//		new BukkitRunnable(){
+//			@Override
+//			public void run() {
+//				for(Player player : parent.getServer().getOnlinePlayers()){
+//					if(playerData.get(player).InCombat.isBefore(LocalDateTime.now().minusSeconds(15))
+//							&& player.getHealth() < player.getMaxHealth()
+//							&& !player.isDead()){
+//						double hp = player.getHealth();
+//						double maxhp = player.getMaxHealth();
+//						hp += (5 + playerData.get(player).getHPRegen());
+//						if(hp > maxhp){
+//							hp = maxhp;
+//						}
+//						player.setHealth(hp);
+//						updateDisplay(player);
+//					}
+//				}
+//			}
+//		}.runTaskTimer(parent, 0, 20);
 	}
 
 	public static Map<Player, PlayerData> playerData = new HashMap<>();
@@ -106,8 +106,8 @@ public class Statistics implements Listener {
 		
 		if (entity.getType().equals(EntityType.PLAYER)) {
 			Hp += 95;
-			playerData.get((Player) entity).HpRegen = HpRegen;
-			playerData.get((Player) entity).EnergyRegen = EnergyRegen;
+			playerData.get((Player) entity).setHPRegen(HpRegen);
+			playerData.get((Player) entity).setEnergyRegen(EnergyRegen);
 		}
 
 		entity.setMaxHealth(Hp);

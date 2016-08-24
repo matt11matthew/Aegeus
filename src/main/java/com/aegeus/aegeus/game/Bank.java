@@ -8,7 +8,9 @@ import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,12 +19,18 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerVelocityEvent;
+import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.util.Vector;
 
 import com.aegeus.aegeus.player.PlayerData;
 import com.aegeus.aegeus.util.InventorytoBase64;
@@ -60,7 +68,17 @@ public class Bank implements Listener{
 	
 	@EventHandler
 	public void onClickEvent(InventoryClickEvent e)	{
-		
+		if(e.getCurrentItem().getType() == Material.GOLD_BLOCK)	{
+			e.setCancelled(true);
+			Bukkit.getScheduler().runTask(parent, new Runnable()	{
+				public void run()	{
+					e.getWhoClicked().closeInventory();
+					e.getWhoClicked().sendMessage("" + ChatColor.GRAY + ChatColor.ITALIC + "Enter the amount of gold that you would like to " + ChatColor.BOLD + "withdraw" + ChatColor.GRAY + ChatColor.ITALIC + ".");
+					Statistics.playerData.get(e.getWhoClicked()).isBankWithdraw = true;
+				}
+			}
+					);
+		}
 	}
 	
 	@EventHandler
@@ -123,5 +141,25 @@ public class Bank implements Listener{
 		item.setItemMeta(meta);
 		i.setItem(8, item);
 		return i;
+	}
+	
+	@EventHandler
+	public void onVehicleMove(VehicleMoveEvent event) {
+	    Minecart vehicle = (Minecart) event.getVehicle();
+	    Player player = (Player) vehicle.getPassenger();
+	    Vector playerVector = player.getLocation().getDirection();
+	   
+	    vehicle.setPassenger(player);
+	    vehicle.setCustomName(player + "'s Minecart");
+	   
+	    double x = Math.round(playerVector.getX());
+	    double z = Math.round(playerVector.getZ());
+	    
+	    Vector velocity = new Vector(x, 0, z);
+	    
+	    Vector velocityMod = new Vector(1, 0, 1);
+	    
+	    vehicle.setDerailedVelocityMod(velocityMod);
+	    vehicle.setVelocity(velocity);
 	}
 }
