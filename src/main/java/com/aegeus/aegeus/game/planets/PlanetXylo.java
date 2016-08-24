@@ -2,17 +2,23 @@ package com.aegeus.aegeus.game.planets;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 
 public class PlanetXylo implements Planet {
 
-	private static final String ID = "planet_xylo";
-	private static final String name = "Xylo";
+	// TODO Remove.
+	// Not a real planet, only for testing.
+	
+	private static final World world = Bukkit.getWorld("planet_xylo");
+	private static final int type = 0;
+	private static final String name = "Planet Xylo";
 	private static final String description = "A temporary planet with tons of gold resources.";
-	private static final Location location = Bukkit.getWorld(ID).getSpawnLocation();
+	private static final int levelRequired = 0;
+	private static final Location location = world.getSpawnLocation();
 	
 	@Override
-	public String getID() {
-		return ID;
+	public World getWorld() {
+		return world;
 	}
 
 	@Override
@@ -21,8 +27,18 @@ public class PlanetXylo implements Planet {
 	}
 	
 	@Override
+	public int getType() {
+		return type;
+	}
+	
+	@Override
 	public String getDescription() {
 		return description;
+	}
+	
+	@Override
+	public int getLevelRequired() {
+		return levelRequired;
 	}
 
 	@Override

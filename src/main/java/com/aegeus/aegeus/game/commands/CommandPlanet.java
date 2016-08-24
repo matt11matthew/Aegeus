@@ -7,7 +7,8 @@ import org.bukkit.entity.Player;
 
 import com.aegeus.aegeus.game.planets.Planet;
 import com.aegeus.aegeus.game.planets.PlanetManager;
-import com.aegeus.aegeus.game.planets.Planets;
+import com.aegeus.aegeus.game.planets.PlanetXylo;
+import com.aegeus.aegeus.game.planets.Terminal;
 
 public class CommandPlanet implements CommandExecutor {
 
@@ -18,18 +19,16 @@ public class CommandPlanet implements CommandExecutor {
 		if(args.length < 1) return false;
 		
 		Player player = (Player) sender;
-		Planet planet = null;
 		String planetget = args[0];
 		
 		if(planetget.equalsIgnoreCase("terminal")) {
-			planet = Planets.TERMINAL.getPlanet();
+			PlanetManager.warpPlayer(player, new Terminal());
 		} else if(planetget.equalsIgnoreCase("xylo")) {
-			planet = Planets.PLANET_XYLO.getPlanet();
+			PlanetManager.warpPlayer(player, new PlanetXylo());
 		} else {
 			return false;
 		}
-		
-		PlanetManager.warpPlayer(player, planet);
+
 		return true;
 	}
 
