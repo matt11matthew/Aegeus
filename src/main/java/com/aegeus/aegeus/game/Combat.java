@@ -73,12 +73,12 @@ public class Combat implements Listener {
 			
 			if(damager instanceof Player){
 				Player dp = (Player) damager;
-				Statistics.playerData.get(dp).InCombat = LocalDateTime.now();
+				Statistics.playerData.get(dp).inCombat = LocalDateTime.now();
 			}
 			
 			if(victim instanceof Player){
 				Player vp = (Player) victim;
-				Statistics.playerData.get(vp).InCombat = LocalDateTime.now();
+				Statistics.playerData.get(vp).inCombat = LocalDateTime.now();
 			}
 			
 //			if(!playerLastHitTick.containsKey((Player) victim)){

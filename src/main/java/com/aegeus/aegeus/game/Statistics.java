@@ -136,11 +136,11 @@ public class Statistics implements Listener {
 	 *            Player to update.
 	 */
 	public static void updateDisplay(Player player) {
-		if (playerData.get(player).BossBarHP == null) {
+		if (playerData.get(player).bossBarHP == null) {
 			// Create a new Hp BossBar for this player
-			playerData.get(player).BossBarHP = Bukkit.createBossBar("", BarColor.GREEN, BarStyle.SEGMENTED_20);
-			playerData.get(player).BossBarHP.addPlayer(player);
-			playerData.get(player).BossBarHP.setVisible(true);
+			playerData.get(player).bossBarHP = Bukkit.createBossBar("", BarColor.GREEN, BarStyle.SEGMENTED_20);
+			playerData.get(player).bossBarHP.addPlayer(player);
+			playerData.get(player).bossBarHP.setVisible(true);
 		}
 		if (Bukkit.getScoreboardManager().getMainScoreboard().getObjective("hp") == null) {
 			// Create an objective for BelowNameHP
@@ -153,8 +153,8 @@ public class Statistics implements Listener {
 		Bukkit.getScoreboardManager().getMainScoreboard().getObjective("hp").getScore(player.getName())
 				.setScore((int) Math.round(player.getHealth()));
 		// Set HP BossBar
-		playerData.get(player).BossBarHP.setProgress(player.getHealth() / player.getMaxHealth());
-		playerData.get(player).BossBarHP.setTitle(Helper.colorCodes(
+		playerData.get(player).bossBarHP.setProgress(player.getHealth() / player.getMaxHealth());
+		playerData.get(player).bossBarHP.setTitle(Helper.colorCodes(
 				"&a" + Math.round(player.getHealth()) + " / " + Math.round(player.getMaxHealth()) + " &lHP"));
 	}
 

@@ -5,7 +5,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.aegeus.aegeus.game.planets.Planet;
 import com.aegeus.aegeus.game.planets.PlanetManager;
 import com.aegeus.aegeus.game.planets.PlanetXylo;
 import com.aegeus.aegeus.game.planets.Terminal;
