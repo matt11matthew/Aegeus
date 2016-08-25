@@ -15,9 +15,9 @@ import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.aegeus.aegeus.Aegeus;
 import com.aegeus.aegeus.player.PlayerData;
 import com.aegeus.aegeus.util.Helper;
+import static com.aegeus.aegeus.common.Constants.*;
 
 public class Server implements Listener {
 
@@ -139,7 +139,7 @@ public class Server implements Listener {
 		}
 		player.sendMessage(Helper.colorCodes(
 				"          &aAegeus &f&lMMORPG&f\n" +
-				"          &a» &7Build &a" + Aegeus.BUILD + " &7(&o" + Aegeus.BUILD_NOTE + "&7)\n" +
+				"          &a» &7Build &a" + BUILD + " &7(&o" + BUILD_NOTE + "&7)\n" +
 				"          &7Modify game settings with &a/settings"));
 		for (int i = 0; i < 3; i++) {
 			player.sendMessage(" ");
@@ -160,11 +160,11 @@ public class Server implements Listener {
 		Random random = new Random();
 		if(Bukkit.hasWhitelist()){
 			event.setMotd(Helper.colorCodes(
-					"&aAegeus &f&lMMORPG&7 - Build &a" + Aegeus.BUILD + "\n"
+					"&aAegeus &f&lMMORPG&7 - Build &a" + BUILD + "\n"
 					+ "&cUngergoing maintenance. Stay tuned!"));
 		} else {
 			event.setMotd(Helper.colorCodes(
-					"&aAegeus &f&lMMORPG&7 - Build &a" + Aegeus.BUILD + "\n"
+					"&aAegeus &f&lMMORPG&7 - Build &a" + BUILD + "\n"
 					+ motds[random.nextInt(motds.length)]));
 		}
 	}

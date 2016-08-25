@@ -9,12 +9,13 @@ import org.bukkit.entity.LivingEntity;
 import com.aegeus.aegeus.game.planets.Planet;
 import com.aegeus.aegeus.game.planets.PlanetXylo;
 import com.aegeus.aegeus.game.stats.Stats;
+import com.aegeus.aegeus.game.stats.StatsBasic;
 
 public class MobXyloSkeleton implements Mob {
 
 	private static String name = "Xylo Skeleton";
 	private static String description = "A fast test skeleton from the planet Xylo.";
-	private static Stats[] stats = {null /* TODO Replace with actual stats */};
+	private static Stats[] stats = {new StatsBasic()};
 	private static Planet[] planets = {new PlanetXylo()};
 	
 	private static EntityType type = EntityType.SKELETON;

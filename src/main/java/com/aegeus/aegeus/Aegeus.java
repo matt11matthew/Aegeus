@@ -22,8 +22,6 @@ import com.aegeus.aegeus.game.mining.Mining;
 
 public class Aegeus extends JavaPlugin {
 	
-	public static final String BUILD = "dev";
-	public static final String BUILD_NOTE = "ASCII boats.";
 	private static final Logger log = Logger.getLogger(Aegeus.class.getName());
 	
 	/**
