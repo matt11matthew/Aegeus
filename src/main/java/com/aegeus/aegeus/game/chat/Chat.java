@@ -40,10 +40,13 @@ public class Chat implements Listener {
 				module.setItemMeta(meta);
 				event.getPlayer().getInventory().addItem(module);
 				PlayerData.get(event.getPlayer()).setBankWithdraw(false);
+				return;
 			}
 			catch(Exception e)	{
 				parent.getLogger().log(Level.SEVERE, "Could not parse message for bank withdrawal", e);
+				event.getPlayer().sendMessage(ChatColor.RED + "Invalid Number!");
 				PlayerData.get(event.getPlayer()).setBankWithdraw(false);
+				return;
 			}
 		}
 		Player player = event.getPlayer();

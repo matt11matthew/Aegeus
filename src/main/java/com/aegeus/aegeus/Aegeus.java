@@ -15,6 +15,7 @@ import com.aegeus.aegeus.game.commands.CommandGlobal;
 import com.aegeus.aegeus.game.commands.CommandMessage;
 import com.aegeus.aegeus.game.commands.CommandRoll;
 import com.aegeus.aegeus.game.commands.CommandSpaceCart;
+import com.aegeus.aegeus.game.commands.CommandSpawnPick;
 import com.aegeus.aegeus.game.commands.CommandPlanet;
 import com.aegeus.aegeus.game.commands.test.CommandTestArmor;
 import com.aegeus.aegeus.game.commands.test.CommandTestWeapon;
@@ -58,6 +59,7 @@ public class Aegeus extends JavaPlugin {
 		getCommand("testarmor").setExecutor(new CommandTestArmor());
 		getCommand("testweapon").setExecutor(new CommandTestWeapon());
 		getCommand("spacecart").setExecutor(new CommandSpaceCart());
+		getCommand("spawnpick").setExecutor(new CommandSpawnPick());
 		
 		// Done, done, and done!
 		getLogger().log(Level.INFO, "Aegeus enabled.");

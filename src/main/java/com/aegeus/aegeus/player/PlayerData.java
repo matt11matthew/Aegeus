@@ -3,6 +3,8 @@ package com.aegeus.aegeus.player;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -17,7 +19,7 @@ public class PlayerData {
 	
 	private BossBar bossBarHP;
 	private Planet currentPlanet = new Terminal();
-//	private UUID uuid;
+	private UUID uuid;
 	
 //	private AlignmentType Alignment = AlignmentType.LAWFUL;
 //	private HorseType Horse = null;

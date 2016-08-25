@@ -31,3 +31,5 @@ commands:
       description: Test inventory.
     spacecart:
       description: create spaceboats and shit.
+    spawnpick:
+      description: Spawn a pick with a certain level.
