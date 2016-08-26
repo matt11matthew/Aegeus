@@ -46,7 +46,7 @@ public class Mining implements Listener	{
 		lore.add(ChatColor.GRAY + "Level: " + ChatColor.AQUA + level);
 		lore.add(ChatColor.GRAY + "EXP: 0 / " + getXPNeeded(level));
 		meta.setLore(lore);
-		meta.setDisplayName("Reinforced Steel Electric Drill");
+		meta.setDisplayName(ChatColor.LIGHT_PURPLE + "Reinforced Legendary Drill	");
 		pickaxe.setItemMeta(meta);
 		return pickaxe;
 	}
@@ -54,5 +54,9 @@ public class Mining implements Listener	{
 	public static int getXPNeeded(int target)	{
 		if(target < 1 || target > 100)	return -1;
 		return (int) (Math.pow(1.114, target) * 100);
+	}
+	
+	public static void giveItem(Player p)	{
+		
 	}
 }
